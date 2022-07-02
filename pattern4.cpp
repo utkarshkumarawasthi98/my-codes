@@ -12,7 +12,7 @@ int main(){
         while (j<=i)
         {
             /* code */
-            cout<<char('A'+i-1)<<" ";
+            cout<<"*"<<" ";
             j++;
         }
         cout<<endl;
