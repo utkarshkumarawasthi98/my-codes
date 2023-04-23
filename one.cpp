@@ -1,13 +1,44 @@
+
 #include<iostream>
 using namespace std;
-int main(){
-    int n=4;
-    cout<<"enter the number that  ";
-    for (int i = 0; i < n; i++)
-    {
-        /* code */
-         cout<<"hello worlddd "<<endl;
+
+class node{
+    public:
+    int data;
+    node* next;
+
+    node(int value){
+        data=value;
+        next=NULL;
     }
+
+
+};
+
+void insertIntoHead(node* &head,int value){
+    node* new_node=new node(value);
+    new_node->next=head;
+    head=new_node;
+
+}
+
+void display(node* head){
+    node*temp=head;
+    while (temp!= NULL)
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<"NULL";
     
-    return 0;
+
+}
+
+
+int main(){
+    node* head=NULL;
+    insertIntoHead(head,22);
+    display(head);
+
+     return 0;
 }
