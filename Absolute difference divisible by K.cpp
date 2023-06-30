@@ -1,33 +1,20 @@
+/*
+Link to the "Absolute difference divisible by K" Problem ==>>  https://practice.geeksforgeeks.org/problems/e0059183c88ab680b2f73f7d809fb8056fe9dc43/1
+
+Link to the complete Explaination Video ==>> https://youtu.be/HJd6iV19zPs 
+
+*/
+
 class Solution {
-    #define ll long long
   public:
-    ll countPairs(int n, int arr[], int k) {
+    long long countPairs(int n, int arr[], int k) {
         
-        // intialize the count
-        ll cnt = 0;
-      
-        // making every element of arr in
-        // range 0 to k - 1
-        for (ll i = 0; i < n; i++) {
-            arr[i] = (arr[i] + k) % k;
+        long long ans = 0;
+        int mp[k+1]={0};
+        for(int i=0;i<n;i++){
+            ans += mp[arr[i]%k];
+            mp[arr[i]%k]++;
         }
-      
-        // create an array hash[]
-        ll hash[k] = { 0 };
-      
-        // store to count of element of arr
-        // in hash[]
-        for (ll i = 0; i < n; i++) {
-            hash[arr[i]]++;
-        }
-      
-        // count the pair whose absolute
-        // difference is divisible by k
-        for (ll i = 0; i < k; i++) {
-            cnt += (hash[i] * (hash[i] - 1)) / 2;
-        }
-      
-        // return the value of count
-        return cnt;
+        return ans;
     }
 };
