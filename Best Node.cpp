@@ -1,44 +1,30 @@
 class Solution {
   public:
-    void dfs(int u,int p,vector<int> adj[],vector<vector<long long>> &ans,vector<int> &a,vector<bool> &lef)
-    {
-		bool islef = 1;
-        for(int v:adj[u])
-        {
-            if(p!=v)
-            {
-				islef = 0;
-                ans[v][0] = max({ans[v][0],ans[u][1]+a[v]});
-                ans[v][1] = max({ans[v][1],ans[u][0]-a[v]});
-                dfs(v,u,adj,ans,a,lef);
-            }
-        }
-        lef[u] = islef;
-    }
-    long long bestNode(int n, vector<int> &A, vector<int> &P) {
-        // code here
-        vector<vector<long long>> v(n ,vector<long long>(2,-1e18));
-        for(int i = 0; i<n; i++)
-        {
-            v[i][0] = A[i];
+    long long bestNode(int N, vector<int> &A, vector<int> &P) {
+        vector<int> adj[N+1];
+        for(int i=1; i<N; i++){
+            adj[P[i]].push_back(i+1);
         }
         
-        for(int &i:P)i--;
-        vector<int> adj[n];
-        for(int i = 1; i<n; i++)
-        {
-            adj[i].push_back(P[i]);
-            adj[P[i]].push_back(i);
+        long long ans = LLONG_MIN;
+        for(int i=1; i<=N; i++){
+            ans = max(ans, dfs(i, adj, A, 0));
         }
-       
-        vector<bool> lef(n,0);
-        dfs(0,-1,adj,v,A,lef);
-        long long ans = -1e18;
-        for(int i = 0; i<n; i++)
-        {
-			if(lef[i])
-            ans = max({ans,v[i][0],v[i][1]});
-        }
+        
         return ans;
+    }
+    
+    long long dfs(int node, vector<int> adj[], vector<int> &A, bool f){
+        long long ans = LLONG_MIN;
+        for(int child: adj[node]){
+            ans = max(ans, dfs(child, adj, A, !f));
+        }
+        
+        long long nodeVal = A[node-1];
+        if(f)
+            nodeVal = -nodeVal;
+        if(ans == LLONG_MIN)
+            return nodeVal;
+        return ans + nodeVal;
     }
 };
