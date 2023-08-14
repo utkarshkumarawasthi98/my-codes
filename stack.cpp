@@ -1,27 +1,20 @@
 #include<iostream>
-#include<stack>
+#include<unordered_map>
 using namespace std;
 
 
-
 int main(){
-    stack<char> s;
-    s.push('l');
-    s.push('o');
-    s.push('v');
-    s.push('e');
-    s.push('u');
-    cout<<s.size()<<endl;
-
-    while (!s.empty())
+    unordered_map<string,int> m;
+    m["love"]=11;
+    m["babbar"]=2;
+    m["hello"]=1;
+    m["baby"]=5;
+    m["kid"]=6;
+    unordered_map<string,int> :: iterator it=m.begin();
+    while (it!=m.end())
     {
-        /* code */
-        cout<<"yesss"<<endl;
-        s.pop();
+        cout<<it->first<<" "<<it->second<<endl;
+        it++;
     }
-    
-
-
     return 0;
 }
-
